@@ -18,7 +18,22 @@ describe UsersController do
       get :show, :id => @user
       assigns(:user).should == @user
     end
-  end
+  
+    it "should have the right title" do
+      get :show, :id => @user
+      response.should have_selector("title", :content => @user.name)
+    end
+    
+    it "should include the user's name" do
+      get :show, :id => @user
+      response.should have_selector("h1", :content => @user.name)
+    end 
+    
+    it "should have a profile image" do
+      get :show, :id => @user
+      response.should have_selector("h1>img", :class => "gravatar")
+    end 
+  end 
     
   describe "GET 'new'" do
     
@@ -27,21 +42,21 @@ describe UsersController do
       response.should be_success
     end
   
-  it "should have the right title" do
-    get :new
-    response.should have_selector("title", :content => "Sign up")
-  end
+    it "should have the right title" do
+      get :new
+      response.should have_selector("title", :content => "Sign up")
+    end
+  
+    it "should include the user's name" do
+      get :show, :id => @user
+      response.should have_selector("h1", :content => @user.name)
+    end
+  
+    it "should have a profile image" do
+      get :show, :id => @user
+      response.should have_selector("h1>img", :class => "gravatar")
+    end
   end 
-  
-  it "should include the user's name" do
-    get :show, :id => @user
-    response.should have_selector("h1", :content => @user.name)
-  end
-  
-  it "should have a profile image" do
-    get :show, :id => @user
-    response.should have_selector("h1>img", :class => "gravatar")
-  end
 
 
   describe "POST 'create'" do
@@ -67,7 +82,8 @@ describe UsersController do
       it "should render the 'new' page" do
         post :create, :user => @attr
         response.should render_template('new')
-      end      
+      end
+    end        
    
     describe "success" do
       
@@ -91,10 +107,16 @@ describe UsersController do
         post :create, :user => @attr
         flash[:success].should =~ /welcome to the sample app/i
       end
+      
+      it "should sign the user in" do
+        post :create, :user => @attr
+        controller.should be_signed_in
+      end
+      
     end
-  end
+  end 
 end 
-end 
+ 
 
 
 
