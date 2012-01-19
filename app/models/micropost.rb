@@ -1,7 +1,8 @@
 class Micropost < ActiveRecord::Base
   attr_accessible :content 
-  
-  belongs_to :user
+  has_attached_file :data
+  has_many :attachments
+  belongs_to :user, :dependent => :destroy
   
   validates :content, :presence => true, :length => { :maximum => 1000 }
   validates :user_id, :presence => true
@@ -23,5 +24,3 @@ class Micropost < ActiveRecord::Base
           { :user_id => user })
   end
 end
-
-

@@ -10,7 +10,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110904191822) do
+ActiveRecord::Schema.define(:version => 20120119191005) do
+
+  create_table "attachments", :force => true do |t|
+    t.integer  "post_id"
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.datetime "data_updated_at"
+    t.string   "data_file_name"
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups_users", :id => false, :force => true do |t|
+    t.integer "group_id"
+    t.integer "user_id"
+  end
+
+  add_index "groups_users", ["group_id", "user_id"], :name => "index_groups_users_on_group_id_and_user_id"
+  add_index "groups_users", ["user_id", "group_id"], :name => "index_groups_users_on_user_id_and_group_id"
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -21,6 +47,18 @@ ActiveRecord::Schema.define(:version => 20110904191822) do
 
   add_index "microposts", ["created_at"], :name => "index_microposts_on_created_at"
   add_index "microposts", ["user_id"], :name => "index_microposts_on_user_id"
+
+  create_table "posts", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
