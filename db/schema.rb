@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120119191005) do
+ActiveRecord::Schema.define(:version => 20120121183830) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "post_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20120119191005) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "owner_id"
   end
 
   create_table "groups_users", :id => false, :force => true do |t|
@@ -43,6 +44,8 @@ ActiveRecord::Schema.define(:version => 20120119191005) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "group_id"
+    t.boolean  "is_resource"
   end
 
   add_index "microposts", ["created_at"], :name => "index_microposts_on_created_at"
@@ -79,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20120119191005) do
     t.string   "encrypted_password"
     t.string   "salt"
     t.boolean  "admin",              :default => false
+    t.string   "user_type"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
