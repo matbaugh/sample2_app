@@ -10,10 +10,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120121183830) do
+ActiveRecord::Schema.define(:version => 20120121191331) do
 
   create_table "attachments", :force => true do |t|
-    t.integer  "post_id"
     t.string   "data_content_type"
     t.integer  "data_file_size"
     t.datetime "data_updated_at"
@@ -22,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20120121183830) do
     t.string   "attachable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "micropost_id"
   end
 
   create_table "groups", :force => true do |t|
@@ -50,29 +50,6 @@ ActiveRecord::Schema.define(:version => 20120121183830) do
 
   add_index "microposts", ["created_at"], :name => "index_microposts_on_created_at"
   add_index "microposts", ["user_id"], :name => "index_microposts_on_user_id"
-
-  create_table "posts", :force => true do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "post_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "relationships", :force => true do |t|
-    t.integer  "follower_id"
-    t.integer  "followed_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
-  add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
-  add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
