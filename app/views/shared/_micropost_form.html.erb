@@ -3,6 +3,7 @@
 	<div class="field">
 		<%= f.text_area :content %>
 	</div>
+	<%= f.hidden_field :group_id, :value=>@group.id %>
 	<div class="actions">
 		<%= f.submit "Submit" %>
 	</div>

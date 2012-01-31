@@ -5,12 +5,13 @@ class MicropostsController < ApplicationController
   
   def create
     @micropost = current_user.microposts.build(params[:micropost])
+    @micropost.group_id = params[:micropost][:group_id]
     if @micropost.save
       flash[:success] = "Micropost create!"
-      redirect_to root_path
+      redirect_to @micropost.group
     else
-      @feed_items = []
-      render 'pages/home'
+      #@feed_items = []
+      redirect_to @micropost.group
     end
   end 
   

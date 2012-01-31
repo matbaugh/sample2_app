@@ -19,6 +19,11 @@
     <%= f.label :password_confirmation, "Confirmation" %><br />
     <%= f.password_field :password_confirmation %>
   </div>
+
+  <div class="field">
+    <%= f.radio_button :user_type, 'Student', :checked => true %> Student<br/>
+    <%= f.radio_button :user_type, 'Teacher' %> Teacher
+  </div>
   
   <div class="actions">
     <%= f.submit "Sign up" %>
