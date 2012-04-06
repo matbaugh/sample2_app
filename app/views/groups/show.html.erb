@@ -1,0 +1,26 @@
+<table class="profile" summary="Profile information">
+  <tr>
+    <td class="main">
+      <h1>
+        <%= @group.name %>
+      </h1>
+	  <!-- render 'follow_form' if signed_in? -->
+		<% unless @group.microposts.empty? %>
+		<table class="microposts" summary="User microposts">
+			<%= render @microposts %>
+		</table>
+		<%= will_paginate @microposts %>
+	<% end %>
+        <%= render 'shared/micropost_form' if signed_in? %>	  
+    </td>
+
+    <td class="sidebar round">
+      <strong>Name</strong> <%= @group.name %><br />
+      <strong>URL</strong>  <%= link_to group_path(@group), @group %><br />
+	  <strong>Microposts</strong> <%= @group.microposts.count %><br />
+	  <%= link_to('Manage members', {:controller=>:groups, :action=>:membership, :id=>@group}) %>
+	  
+	  <!-- render 'shared/stats' -->
+    </td>
+  </tr>
+</table>

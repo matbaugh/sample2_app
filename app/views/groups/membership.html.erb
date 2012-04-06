@@ -1,0 +1,34 @@
+<table class="profile" summary="Profile information">
+  <tr>
+    <td class="main">
+      <h3>
+        <%= @group.name %>: Current members
+      </h3>
+	  <!-- render 'follow_form' if signed_in? -->
+		<% unless @group.users.empty? %>
+		<table class="microposts" summary="User microposts">
+			<%= render :partial => 'users/user', :collection => @group.users %>
+		</table>
+	<% end %>
+	
+	
+      <h3>
+        Add members:
+      </h3>
+      <% User.all(:order=>:name).each do |user| %>
+	<% if !@group.users.include?(user) %>
+		<%= link_to user.name, user_path(user) %> | <%= link_to "add to class", {:controller=>:groups, :action=>:add_member, :group_id=>@group.id, :id=>user.id} %><br/>
+	<% end %>
+      <% end %>
+
+    </td>
+
+    <td class="sidebar round">
+      <strong>Name</strong> <%= @group.name %><br />
+      <strong>URL</strong>  <%= link_to group_path(@group), @group %><br />
+	  <strong>Microposts</strong> <%= @group.microposts.count %><br />
+	  
+	  <!-- render 'shared/stats' -->
+    </td>
+  </tr>
+</table>

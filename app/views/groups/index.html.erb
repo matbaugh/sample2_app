@@ -1,0 +1,11 @@
+<h1>My Classes</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+	<%= render @groups %>
+</ul>
+
+<%= will_paginate %>
+
+<p><%= link_to 'New Class', new_group_path %></p>

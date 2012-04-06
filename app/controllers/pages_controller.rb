@@ -8,6 +8,10 @@ class PagesController < ApplicationController
     end
   end 
   
+  def new
+    @page = Page.new
+  end
+  
   def contact
     @title = "Contact"
   end

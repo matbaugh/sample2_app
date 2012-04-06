@@ -4,22 +4,27 @@ Sample2App::Application.routes.draw do
     member do
       get :following, :followers
     end
-  end 
+  end
   
+  resources :students, :controller => "users", :type => 'Student'
+  resources :groups
+  resources :pages
   resources :sessions, :only => [:new, :create, :destroy]
   resources :microposts, :only => [:create, :destroy]
   resources :relationships, :only => [:create, :destroy]
   
   
-  
+  match '/resources', :to => 'pages#resources'
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
   match '/contact', :to => 'pages#contact'
   match '/about',   :to => 'pages#about'
   match '/help',    :to => 'pages#help'
+  match '/membership',    :to => 'groups#membership'
+  match '/add_member',    :to => 'groups#add_member'
   
-  root :to => 'pages#home'
+  root :to => 'sessions#new'
   
   get "users/show"
   get "sessions/new"

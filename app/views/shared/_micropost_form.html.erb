@@ -1,8 +1,10 @@
-<%= form_for @micropost do |f| %>
+<%= form_for(@micropost, :html=>{:multipart=>true}) do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
 	<div class="field">
 		<%= f.text_area :content %>
 	</div>
+	<%= f.hidden_field :group_id, :value=>@group.id %>
+	<%= file_field :attachment, :data, :multiple=>true %>
 	<div class="actions">
 		<%= f.submit "Submit" %>
 	</div>

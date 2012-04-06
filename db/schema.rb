@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120121191331) do
+ActiveRecord::Schema.define(:version => 20120213224011) do
 
   create_table "attachments", :force => true do |t|
     t.string   "data_content_type"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20120121191331) do
     t.string   "encrypted_password"
     t.string   "salt"
     t.boolean  "admin",              :default => false
-    t.string   "user_type"
+    t.string   "type"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

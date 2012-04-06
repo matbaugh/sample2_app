@@ -6,6 +6,13 @@
 		<span class="timestamp">
 			Posted <%= time_ago_in_words(micropost.created_at) %> ago. 
 		</span>
+<% micropost.attachments.each do |attachment| %>
+ <% if attachment.image? %>
+   <%= link_to image_tag(attachment.data.url(:thumb)), attachment.data.url(:large) %> <br/>
+ <% else %>
+ <%= link_to attachment.data_file_name, attachment.data.url %> <br/>
+<% end %>
+<% end %>
 	</td>
 	<% user = micropost.user rescue User.find(micropost.user_id) %>
 	<% if current_user?(user) %>
@@ -16,3 +23,6 @@
 	</td>
 	<% end %>
 </tr>
+
+
+	

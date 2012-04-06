@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
  before_filter :authenticate, :except => [:show, :new, :create]
  before_filter :correct_user, :only => [:edit, :update]
- before_filter :admin_user,   :only => :destroy
+ before_filter :admin_user,   :only => :destroy 
  
   def index
     @title = "All users"
@@ -20,11 +20,16 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(params[:user])
+    user_type = params[:user].delete(:type)
+    if user_type =="Student"
+      @user = Student.new(params[:user])
+    elsif user_type =="Teacher"
+      @user = Teacher.new(params[:user])
+    end
     if @user.save
       sign_in @user
       flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      redirect_to user_path(@user)
     else
       @title = "Sign Up"
       render 'new'
@@ -40,7 +45,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated"
-      redirect_to @user
+      redirect_to user_path(@user)
     else
       @title = "Edit user"
       render 'edit'
@@ -53,21 +58,11 @@ class UsersController < ApplicationController
     redirect_to users_path
   end 
   
-  def following
-    @title = "Following"
-    @user = User.find(params[:id])
-    @users = @user.following.paginate(:page => params[:page])
-    render 'show_follow'
-  end 
-  
-  def followers
-    @title = "Followers"
-    @user = User.find(params[:id])
-    @users = @user.followers.paginate(:page => params[:page])
-    render 'show_follow'
-  end 
-  
   private
+  
+    def authenticate
+      deny_access unless signed_in?
+    end
     
     def correct_user
       @user = User.find(params[:id])

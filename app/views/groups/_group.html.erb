@@ -1,0 +1,11 @@
+<% if current_user.type == 'Teacher' || group.users.includes(current_user) %>
+
+	<li>
+		<%= link_to group.name, group %>
+		<% if current_user.type == 'teacher' %>
+		|   <%= link_to "delete", group, :method => :delete, :confirm => "You sure?", 
+									  :title => "Delete #{group.name}" %>
+		<% end %>
+	</li>
+
+<% end %>
