@@ -7,3 +7,4 @@ def micropost
   @micropost = commentable.is_a?(Micropost) ? commentable : commentable.micropost
 end
 
+end

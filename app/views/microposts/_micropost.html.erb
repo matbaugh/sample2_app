@@ -14,6 +14,8 @@
 <% end %>
 <% end %>
 
+<ul>
+<% micropost.comments.each do |comment|%>
 <li class="comment">
     <h3><%=comment.title %></h3>
     
@@ -28,7 +30,8 @@
 	<%= render :partial => 'comments/comment', :collection => comment.comments %>
 	</ul>
 <% end %>
-
+<% end %>
+</ul>
 </li>
 
 	</td>
