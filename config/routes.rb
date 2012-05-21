@@ -1,10 +1,21 @@
 Sample2App::Application.routes.draw do
   
+  resources :comments do
+    resources :comments
+  end
+  
   resources :users do
     member do
       get :following, :followers
     end
   end
+  
+  resources :microposts do
+    resources :comments
+  end
+  
+  
+  
   
   resources :students, :controller => "users", :type => 'Student'
   resources :groups
@@ -12,7 +23,7 @@ Sample2App::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :microposts, :only => [:create, :destroy]
   resources :relationships, :only => [:create, :destroy]
-  
+  resources :routes
   
   match '/resources', :to => 'pages#resources'
   match '/signup',  :to => 'users#new'
@@ -23,6 +34,7 @@ Sample2App::Application.routes.draw do
   match '/help',    :to => 'pages#help'
   match '/membership',    :to => 'groups#membership'
   match '/add_member',    :to => 'groups#add_member'
+  match 'remove_member', :to => "groups#remove_member", :as => "remove_member"
   
   root :to => 'sessions#new'
   

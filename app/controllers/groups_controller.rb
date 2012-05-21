@@ -1,6 +1,5 @@
 class GroupsController < ApplicationController
 
-
    
   def index
     @title = "All Classes"
@@ -63,4 +62,14 @@ class GroupsController < ApplicationController
     @group.users << @user
     redirect_to :action=>:membership, :id=>@group.id
   end
+  
+  def remove_member
+    @group = Group.find(params[:group_id])
+    @user = User.find(params[:id])
+    @group.users.delete(@user)
+    flash[:success] = "User removed."
+    redirect_to group_path(@group)
+  end
+  
+  
 end
