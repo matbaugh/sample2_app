@@ -4,6 +4,9 @@
 
 <ul class="users">
 	<%= render @groups %>
+	<% if current_user.admin? %>
+	
+<% end %>
 </ul>
 
 <%= will_paginate %>

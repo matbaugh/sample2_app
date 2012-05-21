@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120213224011) do
+ActiveRecord::Schema.define(:version => 20120521082008) do
 
   create_table "attachments", :force => true do |t|
     t.string   "data_content_type"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(:version => 20120213224011) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "micropost_id"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "groups", :force => true do |t|

@@ -6,12 +6,14 @@
       </h3>
 	  <!-- render 'follow_form' if signed_in? -->
 		<% unless @group.users.empty? %>
-		<table class="microposts" summary="User microposts">
-			<%= render :partial => 'users/user', :collection => @group.users %>
-		</table>
-	<% end %>
-	
-	
+		<ul>
+		  <% @group.users.each do |user| %>
+		  <li><%= user.name %> - <%= link_to "Remove", {:controller => :groups, :action => :remove_member, :group_id => @group.id, :id => user.id } %>
+		  </li>
+		<% end %> 
+		</ul>
+	      <% end %>
+
       <h3>
         Add members:
       </h3>
@@ -20,7 +22,6 @@
 		<%= link_to user.name, user_path(user) %> | <%= link_to "add to class", {:controller=>:groups, :action=>:add_member, :group_id=>@group.id, :id=>user.id} %><br/>
 	<% end %>
       <% end %>
-
     </td>
 
     <td class="sidebar round">
