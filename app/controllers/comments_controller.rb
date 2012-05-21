@@ -1,18 +1,14 @@
 class CommentsController < ApplicationController
   before_filter :get_parent
   
-  def new
-    @comment = @parent.comments.build
-  end
-  
+
   def create
     @comment = @parent.comments.build(params[:comment])
-  
-    if @comment.save
-      redirect_to micropost_path(@comment.micropost), :notice => 'Thanks for posting a comment!'
-    else
-      render :new
+    saved = @comment.save
+    while @parent.is_a?(Comment)
+      @parent = @parent.commentable
     end
+    redirect_to group_path(@parent.group), :notice => saved ? 'Thanks for posting a comment!' : 'No comment added'
   end
   
   protected

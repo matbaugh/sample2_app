@@ -243,3 +243,7 @@ form.new_micropost textarea {
 height: 4em;
 margin-bottom: 0;
 }
+
+
+.micropost form { display: none; }
+.micropost form textarea { height: 4em; }

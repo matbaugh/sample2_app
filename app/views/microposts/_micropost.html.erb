@@ -22,17 +22,18 @@
     <div class="body">
 	<%= comment.body %>
     </div>
-
-    <p><%= link_to 'Add a Reply', new_comment_comment_path(comment) %></p>
-
-<% unless comment.comments.empty? %>
-	<ul class="comment_list">
-	<%= render :partial => 'comments/comment', :collection => comment.comments %>
-	</ul>
-<% end %>
+</li>
 <% end %>
 </ul>
-</li>
+
+<button class="reply">Add a reply</button>
+<%= form_for Comment.new do |f| %>
+	<%= hidden_field_tag :micropost_id, micropost.id %>
+	<%= f.label :body %>
+	<%= f.text_area :body %>
+	<%= submit_tag %>
+<% end %>
+
 
 	</td>
 	<% user = micropost.user rescue User.find(micropost.user_id) %>
